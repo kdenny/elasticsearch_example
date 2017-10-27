@@ -284,7 +284,8 @@
           "type": "array"
         },
         "charts": {
-          "$ref": "#/definitions/NewChart"
+          "type": "array",
+          "$ref": "#/definitions/Chart"
         },
         "layout": {
           "type": "object"
@@ -325,7 +326,7 @@
           "type": "string"
         },
         "dataset": {
-          "type": "object"
+          "$ref": "#/definitions/Dataset"
         },
         "display_schema": {
           "type": "object"
