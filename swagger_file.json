@@ -166,6 +166,88 @@
           }
         }
       }
+    },
+    "/charts": {
+      "get": {
+        "description": "Returns all charts from the system that the user has access to",
+        "operationId": "findCharts",
+        "produces": [
+          "application/json",
+          "application/xml",
+          "text/xml",
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "tags to filter by",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "csv"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "maximum number of results to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "reports response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Chart"
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new chart",
+        "operationId": "addChart",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "chart",
+            "in": "body",
+            "description": "Chart to add to the library",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewChart"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "chart response",
+            "schema": {
+              "$ref": "#/definitions/Chart"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -202,7 +284,7 @@
           "type": "array"
         },
         "charts": {
-          "type": "array"
+          "$ref": "#/definitions/NewChart"
         },
         "layout": {
           "type": "object"
@@ -277,8 +359,7 @@
         "fields",
         "api_endpoint",
         "chart_type",
-        "render_schema",
-        "tags"
+        "render_schema"
       ],
       "properties": {
         "name": {
